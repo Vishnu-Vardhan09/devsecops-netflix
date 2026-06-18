@@ -1,13 +1,8 @@
-FROM node:26.3.1-alpine as builder
+FROM node:20-alpine as builder
 WORKDIR /app
 COPY ./package.json .
 COPY ./yarn.lock .
-RUN apt-get update && apt-get install -y curl \
-    && curl -fsSL https://nodesource.com | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g yarn \
-    && rm -rf /var/lib/apt/lists/*
-
+RUN yarn install
 COPY . .
 ARG TMDB_V3_API_KEY
 ENV VITE_APP_TMDB_V3_API_KEY=${TMDB_V3_API_KEY}
