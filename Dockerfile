@@ -1,5 +1,6 @@
 FROM node:26.3.1-alpine as builder
 WORKDIR /app
+RUN corepack enable
 COPY ./package.json .
 COPY ./yarn.lock .
 RUN yarn install
